@@ -19,10 +19,10 @@ export default function TopNav() {
     }`
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 safe-area-inset-top">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-          <span className="text-black font-serif font-bold text-base tracking-tight">Topic Lab</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-white border-b border-gray-200 safe-area-inset-top overflow-x-hidden">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between min-w-0">
+        <Link to="/" className="flex items-center gap-2 min-w-0 shrink" onClick={() => setMobileMenuOpen(false)}>
+          <span className="text-black font-serif font-bold text-base tracking-tight truncate">Topic Lab</span>
         </Link>
 
         {/* Desktop nav */}
@@ -45,7 +45,7 @@ export default function TopNav() {
         </div>
 
         {/* Mobile: hamburger + create button */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-2 shrink-0">
           <Link
             to="/topics/new"
             className="bg-black text-white px-3 py-1.5 rounded-lg text-sm font-serif font-medium"
