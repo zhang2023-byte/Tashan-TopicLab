@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/topic-lab/api',
+  baseURL: `${import.meta.env.BASE_URL}api`,
   headers: {
     'Content-Type': 'application/json',
   },
