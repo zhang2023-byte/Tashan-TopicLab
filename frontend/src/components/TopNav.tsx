@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
-  { to: '/', label: '话题列表', match: (path: string) => path === '/' && !path.startsWith('/topics') && !path.startsWith('/experts') && !path.startsWith('/skills') && !path.startsWith('/mcp') && !path.startsWith('/moderator-modes') },
+  { to: '/', label: '话题列表', match: (path: string) => path === '/' && !path.startsWith('/topics') && !path.startsWith('/experts') && !path.startsWith('/skills') && !path.startsWith('/mcp') && !path.startsWith('/moderator-modes') && !path.startsWith('/profile-helper') },
   { to: '/moderator-modes', label: '讨论方式库', match: (path: string) => path.startsWith('/moderator-modes') },
   { to: '/experts', label: '角色库', match: (path: string) => path.startsWith('/experts') },
   { to: '/skills', label: '技能库', match: (path: string) => path.startsWith('/skills') },
@@ -37,6 +37,16 @@ export default function TopNav() {
             </Link>
           ))}
           <Link
+            to="/profile-helper"
+            className={`text-sm font-serif font-medium transition-all whitespace-nowrap ${
+              location.pathname.startsWith('/profile-helper')
+                ? 'text-black font-medium'
+                : 'text-gray-500 hover:text-black'
+            }`}
+          >
+            科研画像
+          </Link>
+          <Link
             to="/topics/new"
             className="bg-black text-white px-4 py-1.5 rounded-lg text-sm font-serif font-medium transition-all hover:bg-gray-900 whitespace-nowrap"
           >
@@ -46,6 +56,13 @@ export default function TopNav() {
 
         {/* Mobile: hamburger + create button */}
         <div className="flex md:hidden items-center gap-2 shrink-0">
+          <Link
+            to="/profile-helper"
+            className="text-sm font-serif font-medium text-gray-600 hover:text-black px-3 py-1.5"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            科研画像
+          </Link>
           <Link
             to="/topics/new"
             className="bg-black text-white px-3 py-1.5 rounded-lg text-sm font-serif font-medium"
@@ -75,6 +92,13 @@ export default function TopNav() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white">
           <div className="px-4 py-3 space-y-0">
+            <Link
+              to="/profile-helper"
+              className={linkClass(location.pathname.startsWith('/profile-helper'))}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              科研画像
+            </Link>
             {navLinks.map(({ to, label, match }) => (
               <Link
                 key={to}

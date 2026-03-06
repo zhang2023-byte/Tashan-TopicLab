@@ -364,4 +364,32 @@ export const libsApi = {
   invalidateCache: () => api.post<{ message: string }>('/libs/invalidate-cache'),
 }
 
+// Profile helper models (same as AI generation, user-selectable)
+export const PROFILE_HELPER_MODELS = [
+  { value: 'qwen-flash', label: 'Qwen Flash（默认）' },
+  { value: 'qwen3.5-plus', label: 'Qwen3.5 Plus' },
+  { value: 'qwen3-max', label: 'Qwen3 Max' },
+  { value: 'deepseek-v3.2', label: 'DeepSeek V3.2' },
+  { value: 'MiniMax-M2.1', label: 'MiniMax M2.1' },
+  { value: 'kimi-k2.5', label: 'Kimi K2.5' },
+  { value: 'glm-5', label: 'GLM-5' },
+  { value: 'glm-4.7', label: 'GLM-4.7' },
+]
+
+// Profile helper API
+export const profileHelperApi = {
+  getOrCreateSession: (existingId?: string) =>
+    api.get<{ session_id: string }>(
+      `/profile-helper/session${existingId ? `?session_id=${encodeURIComponent(existingId)}` : ''}`
+    ),
+  getProfile: (sessionId: string) =>
+    api.get<{ profile: string; forum_profile: string }>(`/profile-helper/profile/${sessionId}`),
+  resetSession: (sessionId: string) =>
+    api.post<{ ok: boolean; session_id: string }>(`/profile-helper/session/reset/${sessionId}`),
+  getDownloadUrl: (sessionId: string) =>
+    `${import.meta.env.BASE_URL}api/profile-helper/download/${sessionId}`,
+  getForumDownloadUrl: (sessionId: string) =>
+    `${import.meta.env.BASE_URL}api/profile-helper/download/${sessionId}/forum`,
+}
+
 export default api
