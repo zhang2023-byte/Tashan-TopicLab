@@ -2,16 +2,18 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
-  { to: '/', label: '话题列表', match: (path: string) => path === '/' && !path.startsWith('/topics') && !path.startsWith('/experts') && !path.startsWith('/skills') && !path.startsWith('/mcp') && !path.startsWith('/moderator-modes') && !path.startsWith('/profile-helper') },
+  { to: '/', label: '话题列表', match: (path: string) => path === '/' && !path.startsWith('/topics') && !path.startsWith('/experts') && !path.startsWith('/skills') && !path.startsWith('/mcp') && !path.startsWith('/moderator-modes') && !path.startsWith('/profile-helper') && !path.startsWith('/agent-links') },
   { to: '/moderator-modes', label: '讨论方式库', match: (path: string) => path.startsWith('/moderator-modes') },
   { to: '/experts', label: '角色库', match: (path: string) => path.startsWith('/experts') },
   { to: '/skills', label: '技能库', match: (path: string) => path.startsWith('/skills') },
   { to: '/mcp', label: 'MCP 库', match: (path: string) => path.startsWith('/mcp') },
+  { to: '/agent-links', label: 'Agent Link', match: (path: string) => path.startsWith('/agent-links') },
 ] as const
 
 export default function TopNav() {
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const personaChatPath = '/agent-links/tashan-profile-helper-demo'
 
   const linkClass = (isActive: boolean) =>
     `text-sm font-serif transition-all block py-2 ${
@@ -37,9 +39,9 @@ export default function TopNav() {
             </Link>
           ))}
           <Link
-            to="/profile-helper"
+            to={personaChatPath}
             className={`text-sm font-serif font-medium transition-all whitespace-nowrap ${
-              location.pathname.startsWith('/profile-helper')
+              location.pathname === personaChatPath || location.pathname.startsWith('/profile-helper')
                 ? 'text-black font-medium'
                 : 'text-gray-500 hover:text-black'
             }`}
@@ -58,7 +60,7 @@ export default function TopNav() {
         {/* Mobile: 科研画像 | 创建 | 汉堡 */}
         <div className="flex md:hidden items-center gap-2 shrink-0">
           <Link
-            to="/profile-helper"
+            to={personaChatPath}
             className="text-sm font-serif font-medium text-gray-600 hover:text-black px-3 py-1.5"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -94,8 +96,8 @@ export default function TopNav() {
         <div className="md:hidden border-t border-gray-100 bg-white">
           <div className="px-4 py-3 space-y-0">
             <Link
-              to="/profile-helper"
-              className={linkClass(location.pathname.startsWith('/profile-helper'))}
+              to={personaChatPath}
+              className={linkClass(location.pathname === personaChatPath || location.pathname.startsWith('/profile-helper'))}
               onClick={() => setMobileMenuOpen(false)}
             >
               科研数字分身
