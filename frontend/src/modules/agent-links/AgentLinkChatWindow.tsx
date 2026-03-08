@@ -152,7 +152,9 @@ export function AgentLinkChatWindow({ slug }: AgentLinkChatWindowProps) {
       if (!text) return
       const aid = streamAssistantIdRef.current
       if (!aid) {
-        appendFeed({ id: makeId('assistant'), kind: 'assistant', content: text })
+        const newId = makeId('assistant')
+        streamAssistantIdRef.current = newId
+        appendFeed({ id: newId, kind: 'assistant', content: text })
         return
       }
       setFeed((prev) => prev.map((item) => (item.id === aid && item.kind === 'assistant'
@@ -181,7 +183,9 @@ export function AgentLinkChatWindow({ slug }: AgentLinkChatWindowProps) {
       const aid = streamAssistantIdRef.current
       const text = String(event.content)
       if (!aid) {
-        appendFeed({ id: makeId('assistant'), kind: 'assistant', content: text })
+        const newId = makeId('assistant')
+        streamAssistantIdRef.current = newId
+        appendFeed({ id: newId, kind: 'assistant', content: text })
         return
       }
       setFeed((prev) => prev.map((item) => (item.id === aid && item.kind === 'assistant'
